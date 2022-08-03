@@ -15,15 +15,17 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
   <!-- Scripts -->
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <script src="{{ asset('js/app.js') }}" defer></script>
+  @stack('scripts')
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
 </head>
 
 <body>
   <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
       <div class="container">
+        <img src="/img/logo.png" class="me-1">
         <a class="navbar-brand" href="{{ url('/') }}">
           {{ config('app.name', 'Laravel') }}
         </a>
