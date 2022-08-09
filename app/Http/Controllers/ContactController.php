@@ -63,6 +63,8 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
+        // abort_if($contact->user_id != auth()->id(), 403);
+        $this->authorize('view', $contact);
         return view('contacts.show', compact('contact'));
     }
 
@@ -76,7 +78,7 @@ class ContactController extends Controller
     {
         // $contact = Contact::findOrFail($contactId);
         // return view('contacts.edit', ['contact' => $contact]);
-
+        $this->authorize('update', $contact);
         return view('contacts.edit', compact('contact'));
     }
 
@@ -89,6 +91,7 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
+        $this->authorize('update', $contact);
         $data = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -108,6 +111,7 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
+        $this->authorize('delete', $contact);
         $contact->delete();
         return redirect()->route('home');
     }
