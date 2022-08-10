@@ -47,9 +47,17 @@ class ContactController extends Controller
         $data = $request->validated();
 
         // Contact::create($data, [...$data,'user_id'=>auth()->id()]);
-        auth()->user()->contacts()->create($data);
 
-        return redirect()->route('home');
+        // session()->flash('alert', [
+        //     'message' => "Contact $contact->name successfully saved",
+        //     'type' => 'success'
+        // ]);
+
+        $contact = auth()->user()->contacts()->create($data);
+        return redirect()->route('home')->with('alert', [
+            'message' => "Contact $contact->name successfully saved",
+            'type' => 'success'
+        ]);
     }
 
     /**
@@ -91,7 +99,10 @@ class ContactController extends Controller
         $this->authorize('update', $contact);
 
         $contact->update($request->validated());
-        return redirect()->route('home');
+        return redirect()->route('home')->with('alert', [
+            'message' => "Contact $contact->name successfully updated",
+            'type' => 'success'
+        ]);
     }
 
     /**
@@ -104,6 +115,9 @@ class ContactController extends Controller
     {
         $this->authorize('delete', $contact);
         $contact->delete();
-        return redirect()->route('home');
+        return redirect()->route('home')->with('alert', [
+            'message' => "Contact $contact->name successfully deleted",
+            'type' => 'success'
+        ]);
     }
 }
