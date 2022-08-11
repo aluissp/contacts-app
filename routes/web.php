@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Models\Contact;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +35,14 @@ Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.ind
 
 // Rutas Simplificadas
 // Route::resource('contacts', ContactController::class);
+
+// Pagos
+Route::get('/checkout', function (Request $request) {
+  return $request->user()
+    ->newSubscription('default', config('stripe.price_id'))
+    ->checkout();
+});
+
+Route::get('/billing-portal', function (Request $request) {
+  return $request->user()->redirectToBillingPortal();
+});
