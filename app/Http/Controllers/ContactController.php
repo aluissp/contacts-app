@@ -21,7 +21,11 @@ class ContactController extends Controller
 
         // Con relaciones eloquent
         // $contacts=auth()->user()->contacts()->get();
-        $contacts = auth()->user()->contacts;
+        $contacts = auth()
+            ->user()
+            ->contacts()
+            ->orderBy('name', 'asc')
+            ->paginate(6);
 
         return view('contacts.index', compact('contacts'));
     }
