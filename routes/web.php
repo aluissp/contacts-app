@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContactShareController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StripeController;
 use App\Models\Contact;
@@ -35,6 +36,9 @@ Route::middleware(['auth', 'subscription'])->group(function () {
   Route::put('/contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update');
   Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
   Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
+
+  Route::resource('contact-shares', ContactShareController::class)
+    ->except(['show', 'edit', 'update']);
 });
 
 // Rutas Simplificadas
