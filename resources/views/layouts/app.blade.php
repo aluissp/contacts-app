@@ -114,7 +114,7 @@
           $freeTrialRemainingDays = now()->diffInDays(auth()->user()->trial_ends_at);
         @endphp
         <x-alert type="info"
-          message="Trial ends in {{ $freeTrialRemainingDays }} days. Upgrade <a href=''{{ route('checkout') }}'>here</a>." />
+          message="Trial ends in {{ $freeTrialRemainingDays }} days. Upgrade <a href='{{ route('checkout') }}'>here</a>." />
       @endif
 
       @yield('content')
