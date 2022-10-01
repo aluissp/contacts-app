@@ -55,6 +55,10 @@ class ContactShareControllerTest extends TestCase
         $response->assertOk();
     }
 
+
+    /**
+     * @depends test_user_can_see_shared_contacts
+     */
     public function test_user_cant_share_already_shared_contact()
     {
         [$user1, $user2] = User::factory(2)->hasContacts(5)->create();
